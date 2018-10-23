@@ -1,0 +1,11 @@
+Winmessage de erro
+
+
+Error MsgGet(32555, 33, "Somente uma campo deve estar preenchido", "", "");
+
+
+/*Deixa campo vermelho*/
+DIG_EM_DECL_BAL.NATIONAL_ID.Style = "PSERROR";
+
+/*Deixa campo normal*/
+ DIG_EM_DECL_BAL.NATIONAL_ID.Style = "PSEDIT";
