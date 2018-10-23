@@ -1,0 +1,43 @@
+
+/* Descrição: Gera relatório */
+
+import PSXP_RPTDEFNMANAGER:*;
+import PSXP_XMLGEN:*; /**/
+
+Declare Function GetDirSeparator PeopleCode PSXPFUNCLIB.FUNCLIB FieldFormula; /**/
+Declare Function GetFileExtension PeopleCode PSXPFUNCLIB.FUNCLIB FieldFormula; /**/
+
+Local string &sOutputFormat = "PDF";
+Local string &sDirSep = GetDirSeparator();
+Local string &RptOutputDir = GetEnv("PS_SERVDIR") | &sDirSep | "files" | &sDirSep | "XMLP" | &sDirSep | UuidGen();
+Local any &ReportDef = create PSXP_RPTDEFNMANAGER:ReportDefn(&sREPORT_DEFN_ID);
+
+&sRptDefn = "DIG_DEMCANC";
+&sTemplateId = "DIG_DEMCANC_1";
+&sLangCode = "";
+&dtAsOfDate = %Date;
+
+/*Set-Up Report*/
+&ReportDef = create PSXP_RPTDEFNMANAGER:ReportDefn(&sRptDefn);
+&ReportDef.Get();
+&ReportDef.OutDestination = &RptOutputDir;
+
+/* output format */
+&sOutputFormat = &sOutputFmt;
+
+&rcdQryPrompts = &ReportDef.GetPSQueryPromptRecord();
+
+/* Setando os campos da &rcdQryPrompts para receber os mesmos valores que foram inseridos na página*/
+
+&rcdQryPrompts.EMPLID.Value = DIG_CANCELA_RUN.EMPLID.Value;
+&rcdQryPrompts.DIG_CANCEL_ID.Value = DIG_CANCELA_RUN.DIG_CANCEL_ID.Value;
+
+&ReportDef.SetPSQueryPromptRecord(&rcdQryPrompts);
+
+/*Generate the Report*/
+&ReportDef.ProcessReport(&sTemplateId, %Language_User, %Date, &sOutputFormat);
+CommitWork();
+/*Publish the Report*/
+
+&ReportDef.DisplayOutput();
+/* DigiSystem - SF077_V2 - Rodrigo Souza - 25/10/2017 - Fim */
