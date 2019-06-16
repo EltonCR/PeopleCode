@@ -9,7 +9,7 @@ Local Rowset &RS_sEmail;
 rem &fileCSV = GetFile(RTrim(%FilePath) | "DISTREC" | DIG_REL_DST_AET.PROCESS_INSTANCE | ".csv", "W", %FilePath_Absolute);
 &fileCSV = GetFile("/u01/apps/psoft/cs90dss/appserv/CS90DSS/LOGS/arquivo.xls", "W", %FilePath_Absolute);
 
-&header = "Unidade de Negocio; ID";
+&header = "Unidade de Negocio ou  Business Unit; ID";
 
 &fileCSV.SetFileLayout(FileLayout.DIG_QUITAC_ARQUIVO_FL);
 If &fileCSV.IsOpen Then
