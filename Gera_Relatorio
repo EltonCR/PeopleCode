@@ -12,8 +12,8 @@ Local string &sDirSep = GetDirSeparator();
 Local string &RptOutputDir = GetEnv("PS_SERVDIR") | &sDirSep | "files" | &sDirSep | "XMLP" | &sDirSep | UuidGen();
 Local any &ReportDef = create PSXP_RPTDEFNMANAGER:ReportDefn(&sREPORT_DEFN_ID);
 
-&sRptDefn = "DIG_DEMCANC";
-&sTemplateId = "DIG_DEMCANC_1";
+&sRptDefn = "REP_DEMCANC";
+&sTemplateId = "TEMP_DEMCANC_1";
 &sLangCode = "";
 &dtAsOfDate = %Date;
 
@@ -29,8 +29,8 @@ Local any &ReportDef = create PSXP_RPTDEFNMANAGER:ReportDefn(&sREPORT_DEFN_ID);
 
 /* Setando os campos da &rcdQryPrompts para receber os mesmos valores que foram inseridos na página*/
 
-&rcdQryPrompts.EMPLID.Value = DIG_CANCELA_RUN.EMPLID.Value;
-&rcdQryPrompts.DIG_CANCEL_ID.Value = DIG_CANCELA_RUN.DIG_CANCEL_ID.Value;
+&rcdQryPrompts.EMPLID.Value = TAB_CANCELA_RUN.EMPLID.Value;
+&rcdQryPrompts.TAB_CANCEL_ID.Value = TAB_CANCELA_RUN.FIELD_CANCEL_ID.Value;
 
 &ReportDef.SetPSQueryPromptRecord(&rcdQryPrompts);
 
@@ -40,4 +40,3 @@ CommitWork();
 /*Publish the Report*/
 
 &ReportDef.DisplayOutput();
-/* DigiSystem - SF077_V2 - Rodrigo Souza - 25/10/2017 - Fim */
