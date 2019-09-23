@@ -3,19 +3,19 @@
 Local File &fileCSV;
 Local Rowset &RS_sEmail;
 
-&RS_sEmail = CreateRowset(Record.DIG_QUITA_ANUAL);
+&RS_sEmail = CreateRowset(Record.TAB_QUITA_ANUAL);
 &RS_sEmail.Fill("where EMAIL_ADDR = ' '");
 
-rem &fileCSV = GetFile(RTrim(%FilePath) | "DISTREC" | DIG_REL_DST_AET.PROCESS_INSTANCE | ".csv", "W", %FilePath_Absolute);
-&fileCSV = GetFile("/u01/apps/psoft/cs90dss/appserv/CS90DSS/LOGS/arquivo.xls", "W", %FilePath_Absolute);
+rem &fileCSV = GetFile(RTrim(%FilePath) | "DISTREC" | TAB_REL_DST_AET.PROCESS_INSTANCE | ".csv", "W", %FilePath_Absolute);
+&fileCSV = GetFile("/.../arquivo.xls", "W", %FilePath_Absolute);
 
 &header = "Unidade de Negocio ou  Business Unit; ID";
 
-&fileCSV.SetFileLayout(FileLayout.DIG_QUITAC_ARQUIVO_FL);
+&fileCSV.SetFileLayout(FileLayout.FILELAYOUT_ARQUIVO_FL);
 If &fileCSV.IsOpen Then
    &fileCSV.WriteLine(&header);
    For &X = 1 To &RS_sEmail.ActiveRowCount
-      &fileCSV.WriteRecord(&RS_sEmail(&X).GetRecord(Record.DIG_QUITA_ANUAL));
+      &fileCSV.WriteRecord(&RS_sEmail(&X).GetRecord(Record.TAB_QUITA_ANUAL));
    End-For;
    &fileCSV.Close();
 End-If;
