@@ -3,19 +3,19 @@
 Local File &fileCSV;
 Local Rowset &RS_sEmail;
 
-&RS_sEmail = CreateRowset(Record.TAB_QUITA_ANUAL);
+&RS_sEmail = CreateRowset(Record.TAB_PGTOS_ANUAL);
 &RS_sEmail.Fill("where EMAIL_ADDR = ' '");
 
 rem &fileCSV = GetFile(RTrim(%FilePath) | "DISTREC" | TAB_REL_DST_AET.PROCESS_INSTANCE | ".csv", "W", %FilePath_Absolute);
 &fileCSV = GetFile("/.../arquivo.xls", "W", %FilePath_Absolute);
 
-&header = "Unidade de Negocio ou  Business Unit; ID";
+&header = "Unidade de Negocio/Business Unit; ID";
 
 &fileCSV.SetFileLayout(FileLayout.FILELAYOUT_ARQUIVO_FL);
 If &fileCSV.IsOpen Then
    &fileCSV.WriteLine(&header);
    For &X = 1 To &RS_sEmail.ActiveRowCount
-      &fileCSV.WriteRecord(&RS_sEmail(&X).GetRecord(Record.TAB_QUITA_ANUAL));
+      &fileCSV.WriteRecord(&RS_sEmail(&X).GetRecord(Record.TAB_PGTOS_ANUAL));
    End-For;
    &fileCSV.Close();
 End-If;
